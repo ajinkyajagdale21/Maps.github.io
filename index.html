@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Google Map</title>
+    
+    <style>
+        #map{
+            height: 550px;
+            width:100%;
+        }
+    </style>
+  
+   
+
+  </head>
+<body>
+    <h1 style="color:green">My Google Map</h1>
+    
+    <div id="map"></div>
+    <script>
+        function initMap(){
+          var options={
+              zoom:10,
+              center:{lat:18.5204,lng:73.8567}
+          }
+        var map=new google.maps.Map(document.getElementById('map'),options);
+     
+     
+     
+     google.maps.event.addListener(map,'click',
+     function(event){
+      let input=prompt("Enter Marked place");
+      addMarker({coords:event.latLng,content:input});
+     
+     });
+     /*
+        var marker =new google.maps.Marker({
+         position:{lat:18.3663,lng:73.7559},
+         map:map
+       });    
+       
+       var infoWindow = new google.maps.InfoWindow({
+          content: '<h1>Sinhagad Fort</h1>'
+       });
+       marker.addListener('click',function(){
+         infoWindow.open(map,marker);
+       });
+    */
+
+    var markers=[
+    {coords:{lat:18.3663,lng:73.7559},
+    content:'<h1>Sinhgad Fort</h1>'
+    },
+    {coords:{lat:18.5195,lng:73.8553},
+    content:'<h1>Shaniwar wada</h1>'
+    },
+    {coords:{lat:18.5164,lng:73.8561},
+    content:'<h1>Shrimant DagduSheth Halwai Mandir</h1>'
+    },
+    {coords:{lat:18.5187,lng:73.8566},
+    content:'<h1>Lal Mahal</h1>'
+    },
+    {coords:{lat:18.5344,lng:73.7853},
+    content:'<h1>Pashan Lake</h1>'
+    }
+    
+    ];    
+    
+    for(var i=0;i<markers.length;i++){
+     addMarker(markers[i]);  
+    }
+    
+    function addMarker(props){
+      var marker = new google.maps.Marker({
+      position:props.coords,
+      map:map
+      });
+    
+      if(props.content){
+        var infoWindow= new google.maps.InfoWindow({
+          content:props.content
+        });
+        
+        marker.addListener('click',function(){
+         infoWindow.open(map,marker);
+       });
+      }
+    }
+  }
+    </script>
+    <script defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUvsfPAv_uBvtSos9mXTjcxdL2tX8tvxI&callback=initMap">
+</script>
+
+</body>
+</html>
